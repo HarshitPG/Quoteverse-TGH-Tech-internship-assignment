@@ -1,18 +1,40 @@
-import React, { createContext, useState } from "react";
-import feeds from "../feedsData";
+import axios from "axios";
+import React, { createContext, useEffect, useState } from "react";
 
 export const ListingContext = createContext(null);
 
-const getDefaultCart = () => {
-  let cart = {};
-  for (let i = 1; i < feeds.length + 1; i++) {
-    cart[i] = 0;
-  }
-  return cart;
-};
-
 export const ListingContextProvider = (props) => {
-  const [cartItems, setCartItems] = useState(getDefaultCart());
+  const [feeds, setFeeds] = useState([]);
+  const [cartItems, setCartItems] = useState({});
+
+  useEffect(() => {
+    const fetchFeeds = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.quotable.io/quotes/random?limit=5"
+        );
+        const feedsData = response.data.map((item, index) => ({
+          ...item,
+          id: index + 1,
+        }));
+        setFeeds(feedsData);
+        const cart = {};
+        feedsData.forEach((item) => {
+          cart[item._id] = 0;
+        });
+        setCartItems(cart);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchFeeds();
+  }, []);
+
+  // useEffect(() => {
+  //   console.log("feeds updated:", feeds);
+  // }, [feeds]);
+
+  console.log("cartItems", cartItems);
 
   const addToCart = (itemId) => {
     if (cartItems[itemId] === 1) {
@@ -32,8 +54,8 @@ export const ListingContextProvider = (props) => {
     cartItems,
     addToCart,
     removeFromCart,
+    feeds,
   };
-  console.log(cartItems);
 
   return (
     <ListingContext.Provider value={contextValue}>

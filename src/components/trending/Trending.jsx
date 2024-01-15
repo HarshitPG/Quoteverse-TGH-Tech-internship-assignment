@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TrendingTopic from "../trendingTopics/TrendingTopic";
-import topics from "../../trendingData";
+// import topics from "../../trendingData";
 import "./Trending.css";
+import axios from "axios";
 const Trending = () => {
+  const [tags, setTags] = useState([]);
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.quotable.io/tags?sortBy=quoteCount&order=desc&limit=3"
+        );
+        const tagsData = response.data.slice(0, 5);
+        setTags(tagsData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchTags();
+  }, []);
   return (
     <>
       <div className="trendingbox">
@@ -14,7 +30,7 @@ const Trending = () => {
         </div>
         <div className="qoutesAll">show all quotes</div>
         <div className="quotestag">
-          {topics.map((item) => (
+          {tags.map((item) => (
             <TrendingTopic item={item} key={item.id} />
           ))}
         </div>

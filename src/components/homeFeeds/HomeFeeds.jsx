@@ -3,16 +3,15 @@ import "./HomeFeeds.css";
 import { ListingContext } from "../../context/listing-context";
 
 const HomeFeeds = ({ item }) => {
-  const { id, name, desc, tag1, tag2, tag3 } = item;
   const { addToCart, removeFromCart, cartItems } = useContext(ListingContext);
 
-  const [isLiked, setIsLiked] = useState(cartItems[id] > 0);
-
-  const handleLikeDislike = () => {
+  const [isLiked, setIsLiked] = useState(cartItems[item._id] > 0);
+  console.log("isLiked", isLiked);
+  const handleLikeDislike = (item) => {
     if (isLiked) {
-      removeFromCart(id);
+      removeFromCart(item);
     } else {
-      addToCart(id);
+      addToCart(item);
     }
     setIsLiked(!isLiked);
   };
@@ -23,10 +22,13 @@ const HomeFeeds = ({ item }) => {
           <img src="../img/profileIcon.png" alt="" />
         </div>
         <div className="postDetails">
-          <div className="postName">{name}</div>
-          <div className="postDesc">{desc}</div>
+          <div className="postName">{item.author}</div>
+          <div className="postDesc">{item.content}</div>
           <div className="postRate">
-            <div className="postLike" onClick={handleLikeDislike}>
+            <div
+              className="postLike"
+              onClick={() => handleLikeDislike(item._id)}
+            >
               <img
                 src={!isLiked ? "../img/Like.png" : "../img/LikeRed.png"}
                 alt=""
@@ -39,13 +41,7 @@ const HomeFeeds = ({ item }) => {
               <img src="../img/Send.png" alt="" />
             </div>
           </div>
-          <div className="postTags">
-            {tag1 ?? ""}
-            {tag2 ? " . " : ""}
-            {tag2 ?? ""}
-            {tag3 ? " . " : ""}
-            {tag3 ?? ""}
-          </div>
+          <div className="postTags">{item.tags}</div>
         </div>
       </div>
     </>

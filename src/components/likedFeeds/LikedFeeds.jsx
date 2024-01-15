@@ -3,8 +3,7 @@ import "./LikedFeeds.css";
 import { ListingContext } from "../../context/listing-context";
 
 const LikedFeeds = ({ item }) => {
-  const { id, name, desc, tag1, tag2, tag3 } = item;
-  const { addToCart } = useContext(ListingContext);
+  const { id, addToCart } = useContext(ListingContext);
   return (
     <>
       <div className="postCards">
@@ -12,10 +11,10 @@ const LikedFeeds = ({ item }) => {
           <img src="../img/profileIcon.png" alt="" />
         </div>
         <div className="postDetails">
-          <div className="postName">{name}</div>
-          <div className="postDesc">{desc}</div>
+          <div className="postName">{item.author}</div>
+          <div className="postDesc">{item.content}</div>
           <div className="postRate">
-            <div className="postLike" onClick={() => addToCart(id)}>
+            <div className="postLike" onClick={() => addToCart(item._id)}>
               <img src="../img/LikeRed.png" alt="" />
             </div>
             <div className="postComment">
@@ -25,13 +24,7 @@ const LikedFeeds = ({ item }) => {
               <img src="../img/Send.png" alt="" />
             </div>
           </div>
-          <div className="postTags">
-            {tag1 ?? ""}
-            {tag2 ? " . " : ""}
-            {tag2 ?? ""}
-            {tag3 ? " . " : ""}
-            {tag3 ?? ""}
-          </div>
+          <div className="postTags">{item.tags}</div>
         </div>
       </div>
     </>
