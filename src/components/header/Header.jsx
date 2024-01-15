@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./Header.css";
-import UserProfile from "../userProfile/userProfile";
 import HomeFeeds from "../homeFeeds/HomeFeeds";
 import feeds from "../../feedsData";
 import Trending from "../trending/Trending";
+import Userprofile from "../userProfile/UserProfile";
+import LikedFeeds from "../likedFeeds/LikedFeeds";
+import { ListingContext } from "../../context/listing-context";
 const Header = () => {
   const [home, setHome] = useState(true);
   function homeClickHandler(trigger) {
@@ -13,6 +15,8 @@ const Header = () => {
       setHome(false);
     }
   }
+
+  const { cartItems } = useContext(ListingContext);
   return (
     <>
       <div className="header">
@@ -27,17 +31,28 @@ const Header = () => {
             </div>
           </div>
         </div>
-        <div className="trending"></div>
+        <div className="trendingInfos">
+          <div className="RightInfos" onClick={() => homeClickHandler()}>
+            <img src="../img/RightInfos.png" alt="" />
+          </div>
+        </div>
       </div>
       <hr />
       <div className="header2">
         <div className="quotverse2">
-          <UserProfile />
+          <Userprofile />
         </div>
         <div className="home2">
           <div className="homeContent2">
             {feeds.map((item) => (
-              <>{home ? <HomeFeeds item={item} key={item.id} /> : ""}</>
+              <>
+                {" "}
+                {home ? (
+                  <HomeFeeds item={item} key={item.id} />
+                ) : cartItems[item.id] !== 0 ? (
+                  <LikedFeeds item={item} key={item.id} />
+                ) : null}
+              </>
             ))}
           </div>
         </div>

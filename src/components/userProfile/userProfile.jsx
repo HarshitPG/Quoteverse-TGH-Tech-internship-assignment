@@ -1,7 +1,7 @@
 import React from "react";
 import "./userProfile.css";
 
-const UserProfile = () => {
+const Userprofile = () => {
   return (
     <>
       <div className="profileBox">
@@ -20,4 +20,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default Userprofile;

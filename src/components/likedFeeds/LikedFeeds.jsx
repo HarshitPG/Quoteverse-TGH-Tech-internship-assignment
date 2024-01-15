@@ -1,21 +1,10 @@
-import React, { useContext, useRef, useState } from "react";
-import "./HomeFeeds.css";
+import React, { useContext } from "react";
+import "./LikedFeeds.css";
 import { ListingContext } from "../../context/listing-context";
 
-const HomeFeeds = ({ item }) => {
+const LikedFeeds = ({ item }) => {
   const { id, name, desc, tag1, tag2, tag3 } = item;
-  const { addToCart, removeFromCart, cartItems } = useContext(ListingContext);
-
-  const [isLiked, setIsLiked] = useState(cartItems[id] > 0);
-
-  const handleLikeDislike = () => {
-    if (isLiked) {
-      removeFromCart(id);
-    } else {
-      addToCart(id);
-    }
-    setIsLiked(!isLiked);
-  };
+  const { addToCart } = useContext(ListingContext);
   return (
     <>
       <div className="postCards">
@@ -26,11 +15,8 @@ const HomeFeeds = ({ item }) => {
           <div className="postName">{name}</div>
           <div className="postDesc">{desc}</div>
           <div className="postRate">
-            <div className="postLike" onClick={handleLikeDislike}>
-              <img
-                src={!isLiked ? "../img/Like.png" : "../img/LikeRed.png"}
-                alt=""
-              />
+            <div className="postLike" onClick={() => addToCart(id)}>
+              <img src="../img/LikeRed.png" alt="" />
             </div>
             <div className="postComment">
               <img src="../img/Comment.png" alt="" />
@@ -52,4 +38,4 @@ const HomeFeeds = ({ item }) => {
   );
 };
 
-export default HomeFeeds;
+export default LikedFeeds;

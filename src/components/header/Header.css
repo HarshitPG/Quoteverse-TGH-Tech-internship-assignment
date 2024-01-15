@@ -57,3 +57,13 @@
 hr {
   border: 1px solid #323232;
 }
+.RightInfos img {
+  height: 8px;
+  width: 18px;
+}
+.trendingInfos {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 6%;
+}
