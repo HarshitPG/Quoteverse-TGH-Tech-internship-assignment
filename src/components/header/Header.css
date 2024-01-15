@@ -1,0 +1,59 @@
+.header {
+  display: grid;
+  grid-template-columns: 27.5% 45% 27.5%;
+  height: 56px;
+}
+.header2 {
+  display: grid;
+  grid-template-columns: 27.5% 45% 27.5%;
+}
+.quotverse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 22px;
+}
+.quotverse2 {
+  display: flex;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 22px;
+}
+.home {
+  border-left: 1px solid;
+  border-right: 1px solid;
+  border-color: #323232;
+}
+.home2 {
+  position: relative;
+  border-left: 1px solid;
+  border-right: 1px solid;
+  border-color: #323232;
+}
+.homeTabs {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 56px;
+}
+.homeContent {
+  display: grid;
+  grid-template-columns: 45%;
+  justify-content: center;
+}
+.homeContent2 {
+  display: grid;
+  justify-content: center;
+}
+.homeIcon img {
+  height: 18px;
+  width: 18px;
+}
+.likeIcon img {
+  height: 16px;
+  width: 18px;
+}
+hr {
+  border: 1px solid #323232;
+}

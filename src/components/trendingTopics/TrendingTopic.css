@@ -1,0 +1,21 @@
+.qoutes {
+  padding-bottom: 16px;
+}
+.qoutesTopic {
+  color: #616161;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 12px;
+  font-weight: 400;
+}
+.qoutesHastag {
+  color: #ffffff;
+  font-family: "Inter-Medium", Helvetica;
+  font-size: 14px;
+  font-weight: 500;
+}
+.qoutesNumber {
+  color: #616161;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 12px;
+  font-weight: 400;
+}
