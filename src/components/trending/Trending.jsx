@@ -9,7 +9,7 @@ const Trending = () => {
     const fetchTags = async () => {
       try {
         const response = await axios.get(
-          "https://api.quotable.io/tags?sortBy=quoteCount&order=desc&limit=3"
+          "https://api.quotable.io/tags?sortBy=quoteCount&order=desc"
         );
         const tagsData = response.data.slice(0, 5);
         setTags(tagsData);

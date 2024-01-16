@@ -46,8 +46,48 @@ const Header = () => {
       })
   );
 
+  const [click, setClick] = useState(false);
+  const [dropdown, setDropdown] = useState(false);
+
+  const handleClick = () => setClick(!click);
+  const closeMobileMenu = () => setClick(false);
+
+  const onMouseEnter = () => {
+    if (window.innerWidth < 960) {
+      setDropdown(true);
+    } else {
+      setDropdown(true);
+    }
+  };
+
+  const onMouseLeave = () => {
+    if (window.innerWidth < 960) {
+      setDropdown(false);
+    } else {
+      setDropdown(false);
+    }
+  };
+
   return (
     <>
+      <div className="navbar">
+        <div className="QuotverseMobile">Quotverse</div>
+        <div className="menu-icon" onClick={handleClick}>
+          <img
+            src={click ? "../img/RightInfos.png" : "../img/RightInfos.png"}
+            alt="Menu Icon"
+          />
+        </div>
+        <ul className={click ? "nav-menu active" : "nav-menu"}>
+          <li className="nav-item-mobile">
+            <div onClick={closeMobileMenu}>
+              <div className="trending-mobile">
+                <Trending />
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
       <div className="header">
         <div className="quotverse">Quotverse</div>
         <div className="home">
@@ -79,6 +119,7 @@ const Header = () => {
           </div>
         </div>
       </div>
+
       <hr />
       <div className="header2">
         <div className="quotverse2">
