@@ -1,0 +1,25 @@
+.postTrend {
+  display: flex;
+  flex-direction: row;
+  margin: 12px;
+  gap: 12px;
+}
+.postTrendarrow img {
+  height: 22px;
+  width: 22px;
+}
+.postTrendcontent {
+  color: #616161;
+  font-family: "Inter-Medium", Helvetica;
+  font-size: 12px;
+  font-weight: 500;
+}
+.postTrendWord {
+  color: #ffffff;
+  /* font-family: "Inter-Medium", Helvetica;
+
+  font-weight: 400; */
+  font-size: 16px;
+  font-family: "Inter-ExtraBold", Helvetica;
+  font-weight: 800;
+}

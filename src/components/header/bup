@@ -18,15 +18,18 @@ const Header = () => {
     TagFeeds,
     home,
     setHome,
-    trendTag,
   } = useContext(ListingContext);
   function homeClickHandler(trigger) {
     if (trigger === "home") {
       setHome(true);
       setTrendTopic(false);
     }
-    if (trigger === "like") {
-      setTrendTopic(false);
+
+    // if (trigger !== "home" && trendTopic === true) {
+    //   setHome(false);
+    //   setTrendTopic(false);
+    // }
+    else {
       setHome(false);
     }
   }
@@ -37,14 +40,6 @@ const Header = () => {
       setHome(true);
     }
   }
-  console.log(
-    Object.entries(cartItems)
-      .filter(([key, value, item]) => value !== 0)
-      .map(([key, value, item]) => {
-        console.log(key, item);
-        return key;
-      })
-  );
 
   return (
     <>
@@ -53,23 +48,10 @@ const Header = () => {
         <div className="home">
           <div className="homeTabs">
             <div className="homeIcon" onClick={() => homeClickHandler("home")}>
-              <img
-                src={!home ? "../img/homeIcon.png" : "../img/Home.png"}
-                alt=""
-              />
+              <img src="../img/homeIcon.png" alt="" />
             </div>
-            <div className="likeIcon" onClick={() => homeClickHandler("like")}>
-              <img
-                src={
-                  home || trendTopic
-                    ? "../img/likeIcon.png"
-                    : "../img/likeActive.png"
-                }
-                alt=""
-                style={
-                  home || trendTopic ? {} : { height: "22px", width: "24px" }
-                }
-              />
+            <div className="likeIcon" onClick={() => homeClickHandler()}>
+              <img src="../img/likeIcon.png" alt="" />
             </div>
           </div>
         </div>
@@ -87,21 +69,15 @@ const Header = () => {
         <div className="home2">
           <div className="homeContent2">
             {!trendTopic ? (
-              home ? (
-                feeds.map((item) => (
-                  <React.Fragment key={item.id}>
+              feeds.map((item) => (
+                <React.Fragment key={item.id}>
+                  {home ? (
                     <HomeFeeds item={item} />
-                  </React.Fragment>
-                ))
-              ) : (
-                Object.entries(cartItems)
-                  .filter(([key, value, item]) => value !== 0)
-                  .map(([key, value, item]) => (
-                    <React.Fragment key={key}>
-                      <LikedFeeds item={[key]} />
-                    </React.Fragment>
-                  ))
-              )
+                  ) : cartItems[item._id] !== 0 ? (
+                    <LikedFeeds item={item} />
+                  ) : null}
+                </React.Fragment>
+              ))
             ) : (
               <>
                 <div className="postTrend">
@@ -113,7 +89,7 @@ const Header = () => {
                   </div>
                   <div>
                     <div className="postTrendcontent">TOPIC</div>
-                    <div className="postTrendWord"># {trendTag}</div>
+                    <div className="postTrendWord">#</div>
                   </div>
                 </div>
                 {TagFeeds.map((item) => (

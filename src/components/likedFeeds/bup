@@ -4,19 +4,18 @@ import { ListingContext } from "../../context/listing-context";
 import axios from "axios";
 
 const LikedFeeds = ({ item }) => {
-  const { removeFromCart, addToCart, cartItems } = useContext(ListingContext);
+  const { addToCart, cartItems } = useContext(ListingContext);
   const [additionalData, setAdditionalData] = useState([]);
-  const [isLiked, setIsLiked] = useState(cartItems[item] > 0);
-  const handleDislike = () => {
-    removeFromCart(item[0]);
-    setIsLiked(false);
-  };
+
   useEffect(() => {
     const fetchAdditionalData = async () => {
       try {
+        // Assuming your API supports fetching additional data for a specific quote ID
         const response = await axios.get(
-          `https://api.quotable.io/quotes/${item[0]}`
+          `https://api.quotable.io/quotes/${item._id}`
         );
+
+        // Assuming the API returns a single quote, not an array
         setAdditionalData((prevData) => [...prevData, response.data]);
         console.log(additionalData);
       } catch (error) {
@@ -24,10 +23,14 @@ const LikedFeeds = ({ item }) => {
       }
     };
 
-    console.log(item);
+    // Fetch additional data only if the item is in the cart
+    console.log(item._id);
 
-    fetchAdditionalData();
-  }, []);
+    // Include item._id in the dependency array to run the effect when item._id changes
+    if (cartItems[item._id] !== 0) {
+      fetchAdditionalData();
+    }
+  }, [item._id, cartItems]);
 
   return (
     <>
@@ -41,10 +44,7 @@ const LikedFeeds = ({ item }) => {
               <div className="postName">{dataItem.author}</div>
               <div className="postDesc">{dataItem.content}</div>
               <div className="postRate">
-                <div
-                  className="postLike"
-                  onClick={() => handleDislike(item._id)}
-                >
+                <div className="postLike" onClick={() => addToCart(item._id)}>
                   <img src="../img/LikeRed.png" alt="" />
                 </div>
                 <div className="postComment">
@@ -54,7 +54,7 @@ const LikedFeeds = ({ item }) => {
                   <img src="../img/Send.png" alt="" />
                 </div>
               </div>
-              <div className="postTags">{dataItem.tags}</div>
+              {/* <div className="postTags">{dataItem.tags}</div> */}
             </div>
           </React.Fragment>
         ))}

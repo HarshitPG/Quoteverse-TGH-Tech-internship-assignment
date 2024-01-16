@@ -6,9 +6,9 @@ import { ListingContextProvider } from "./context/listing-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  <>
     <ListingContextProvider>
       <App />
     </ListingContextProvider>
-  </React.StrictMode>
+  </>
 );

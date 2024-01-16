@@ -43,8 +43,9 @@
   justify-content: center;
 }
 .homeContent2 {
-  display: grid;
-  justify-content: center;
+  justify-content: flex-start;
+  border-bottom: 1px solid;
+  border-color: #323232;
 }
 .homeIcon img {
   height: 18px;

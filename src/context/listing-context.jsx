@@ -1,11 +1,22 @@
 import axios from "axios";
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useRef, useState } from "react";
 
 export const ListingContext = createContext(null);
 
 export const ListingContextProvider = (props) => {
+  const [trendTopic, setTrendTopic] = useState(false);
   const [feeds, setFeeds] = useState([]);
+  const [TagFeeds, setTagFeeds] = useState([]);
   const [cartItems, setCartItems] = useState({});
+  const [trendTag, setTrendTag] = useState();
+  const [home, setHome] = useState(true);
+
+  const handleTrendTags = (item) => {
+    setTrendTag(item);
+    console.log("setTrendTag", trendTag);
+    setTrendTopic(true);
+    setHome(false);
+  };
 
   useEffect(() => {
     const fetchFeeds = async () => {
@@ -22,7 +33,7 @@ export const ListingContextProvider = (props) => {
         feedsData.forEach((item) => {
           cart[item._id] = 0;
         });
-        setCartItems(cart);
+        setCartItems((prev) => ({ ...prev, ...cart }));
       } catch (error) {
         console.error(error);
       }
@@ -30,9 +41,30 @@ export const ListingContextProvider = (props) => {
     fetchFeeds();
   }, []);
 
-  // useEffect(() => {
-  //   console.log("feeds updated:", feeds);
-  // }, [feeds]);
+  useEffect(() => {
+    const fetchTagFeed = async () => {
+      try {
+        const response = await axios.get(
+          `https://api.quotable.io/quotes?tags=${trendTag}`
+        );
+        const tagfeedsData = response.data.results
+          .slice(0, 5)
+          .map((item, index) => ({
+            ...item,
+            id: index + 1,
+          }));
+        setTagFeeds(tagfeedsData);
+        const cart = {};
+        tagfeedsData.forEach((item) => {
+          cart[item._id] = 0;
+        });
+        setCartItems((prev) => ({ ...prev, ...cart }));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchTagFeed();
+  }, [trendTag]);
 
   console.log("cartItems", cartItems);
 
@@ -51,10 +83,18 @@ export const ListingContextProvider = (props) => {
   };
 
   const contextValue = {
+    setTrendTopic,
+    trendTopic,
     cartItems,
     addToCart,
     removeFromCart,
     feeds,
+    trendTag,
+    setTrendTag,
+    TagFeeds,
+    handleTrendTags,
+    home,
+    setHome,
   };
 
   return (
