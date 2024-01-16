@@ -43,9 +43,16 @@
   margin-bottom: 12px;
 }
 .postTags {
+  display: flex;
+  flex-direction: row;
   color: #616161;
   font-family: "Inter-Regular", Helvetica;
   font-size: 13px;
   font-weight: 400;
   letter-spacing: -0.2px;
+}
+.dot img {
+  margin: 2px 4px;
+  height: 2px;
+  width: 2px;
 }

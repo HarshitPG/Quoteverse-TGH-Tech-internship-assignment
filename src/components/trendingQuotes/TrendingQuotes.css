@@ -23,3 +23,8 @@
   font-family: "Inter-ExtraBold", Helvetica;
   font-weight: 800;
 }
+.dot img {
+  margin: 2px 4px;
+  height: 2px;
+  width: 2px;
+}

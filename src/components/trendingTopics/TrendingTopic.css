@@ -19,3 +19,8 @@
   font-size: 12px;
   font-weight: 400;
 }
+.dot img {
+  margin: 2px 4px;
+  height: 2px;
+  width: 2px;
+}

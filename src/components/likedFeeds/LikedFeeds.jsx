@@ -54,7 +54,18 @@ const LikedFeeds = ({ item }) => {
                   <img src="../img/Send.png" alt="" />
                 </div>
               </div>
-              <div className="postTags">{dataItem.tags}</div>
+              <div className="postTags">
+                {dataItem.tags.map((tag, index) => (
+                  <React.Fragment key={index}>
+                    <span>{tag}</span>
+                    {index < dataItem.tags.length - 1 && (
+                      <div className="dot">
+                        <img src="../img/dot.png" alt="" />
+                      </div>
+                    )}
+                  </React.Fragment>
+                ))}
+              </div>
             </div>
           </React.Fragment>
         ))}

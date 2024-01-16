@@ -54,7 +54,19 @@ const TrendingQuotes = ({ item }) => {
               <img src="../img/Send.png" alt="" />
             </div>
           </div>
-          <div className="postTags">{item.tags}</div>
+          <div className="postTags">
+            {item.tags.map((tag, index) => (
+              <React.Fragment key={index}>
+                <span>{tag}</span>
+                {index < item.tags.length - 1 && (
+                  <div className="dot">
+                    {" "}
+                    <img src="../img/dot.png" alt="" />
+                  </div>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
         </div>
       </div>
     </>
